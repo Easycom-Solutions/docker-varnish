@@ -2,21 +2,24 @@ FROM easycom/base:stretch
 MAINTAINER Frédéric TURPIN <frederic.turpin@easycom.digital>
 
 ENV VARNISH_VERSION=3.0.7
+COPY ipcast-3d81a4e.tar.gz /tmp/ipcast.tar.gz
+COPY varnish-${VARNISH_VERSION}.tar /tmp/varnish.tar.gz
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-  && apt-get install -y autotools-dev automake make libreadline-dev libtool autoconf libncurses-dev xsltproc groff-base libpcre3-dev pkg-config python-all python-docutils curl git
+  && apt-get install -y autotools-dev automake make libreadline-dev libtool autoconf libncurses-dev xsltproc groff-base libpcre3-dev pkg-config python-all python-docutils
 
 RUN cd /tmp/ \
-  && curl -o varnish.tgz https://repo.varnish-cache.org/source/varnish-${VARNISH_VERSION}.tar.gz \
-  && git clone https://github.com/lkarsten/libvmod-ipcast ipcast \
-  && tar xfvz varnish.tgz \ 
+  && tar xfvz varnish.tar.gz \ 
   && mv varnish-* varnish \
   && cd varnish/ \
   && ./autogen.sh \
   && ./configure --prefix=/usr \
   && make \
   && make install \
-  && cd ../ipcast/ \
+  && cd /tmp/ \
+  && tar xfvz ipcast*.tar.gz \
+  && mv ipcast-* ipcast \
+  && cd ipcast \
   && ./autogen.sh \
   && ./configure VARNISHSRC=/tmp/varnish \
   && make \
