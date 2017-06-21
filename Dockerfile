@@ -1,21 +1,27 @@
-FROM debian:wheezy
+FROM easycom/base:stretch
 MAINTAINER Frédéric TURPIN <frederic.turpin@easycom.digital>
 
-ADD ./bashrc.root /root/.bashrc
+ENV VARNISH_VERSION=3.0.7
 
-# Install basics
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-	&& apt-get -y --no-install-recommends install nano \ 
-												  htop \
-	   											  iptraf
+  && apt-get install -y autotools-dev automake make libreadline-dev libtool autoconf libncurses-dev xsltproc groff-base libpcre3-dev pkg-config python-all python-docutils curl git
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https curl \
-  && curl https://repo.varnish-cache.org/debian/GPG-key.txt | apt-key add - \
-  && echo "deb https://repo.varnish-cache.org/debian/ wheezy varnish-3.0" > /etc/apt/sources.list.d/varnish-cache.list \
-  && apt-get update \
-  && apt-get install -y varnish \
-  && service varnish stop \
-  
+RUN cd /tmp/ \
+  && curl -o varnish.tgz https://repo.varnish-cache.org/source/varnish-${VARNISH_VERSION}.tar.gz \
+  && git clone https://github.com/lkarsten/libvmod-ipcast ipcast \
+  && tar xfvz varnish.tgz \ 
+  && mv varnish-* varnish \
+  && cd varnish/ \
+  && ./autogen.sh \
+  && ./configure --prefix=/usr \
+  && make \
+  && make install \
+  && cd ../ipcast/ \
+  && ./autogen.sh \
+  && ./configure VARNISHSRC=/tmp/varnish \
+  && make \
+  && make install
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV NFILES 131072
