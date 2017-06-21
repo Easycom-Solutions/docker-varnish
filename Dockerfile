@@ -1,8 +1,7 @@
 FROM easycom/base:stretch
 MAINTAINER Frédéric TURPIN <frederic.turpin@easycom.digital>
 
-ENV VARNISH_VERSION=3.0.7
-COPY ipcast-3d81a4e.tar.gz /tmp/ipcast.tar.gz
+ENV VARNISH_VERSION=4.0.4
 COPY varnish-${VARNISH_VERSION}.tar.gz /tmp/varnish.tar.gz
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
@@ -14,14 +13,6 @@ RUN cd /tmp/ \
   && cd varnish/ \
   && ./autogen.sh \
   && ./configure --prefix=/usr \
-  && make \
-  && make install \
-  && cd /tmp/ \
-  && tar xfvz ipcast*.tar.gz \
-  && mv ipcast-* ipcast \
-  && cd ipcast \
-  && ./autogen.sh \
-  && ./configure VARNISHSRC=/tmp/varnish \
   && make \
   && make install
 
@@ -40,6 +31,7 @@ ENV VARNISH_THREAD_POOLS thread_pools=2
 ENV VARNISH_LISTEN_DEPTH listen_depth=1024
 ENV VARNISH_SECRET_FILE ""
 ENV VARNISH_CUSTOM_OPTIONS ""
+ENV VARNISH_ALLOW_INLINE_C ""
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
