@@ -3,7 +3,7 @@ MAINTAINER Frédéric TURPIN <frederic.turpin@easycom.digital>
 
 ENV VARNISH_VERSION=3.0.7
 COPY ipcast-3d81a4e.tar.gz /tmp/ipcast.tar.gz
-COPY varnish-${VARNISH_VERSION}.tar /tmp/varnish.tar.gz
+COPY varnish-${VARNISH_VERSION}.tar.gz /tmp/varnish.tar.gz
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
   && apt-get install -y autotools-dev automake make libreadline-dev libtool autoconf libncurses-dev xsltproc groff-base libpcre3-dev pkg-config python-all python-docutils
