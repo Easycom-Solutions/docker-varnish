@@ -1,7 +1,8 @@
 # Supported tags and respective `Dockerfile` links
 * `3.0.7`, `3x.` [(3.x/Dockerfile)](https://github.com/Easycom-Solutions/docker-varnish/blob/3.x/Dockerfile)
-* `4.0.4`, `4.1.6`, `4x.` [(4.x/Dockerfile)](https://github.com/Easycom-Solutions/docker-varnish/blob/4.x/Dockerfile)
-* `5.0.0`, `5.1.1`, `5.1.2`, `5x.` [(5.x/Dockerfile)](https://github.com/Easycom-Solutions/docker-varnish/blob/5.x/Dockerfile)
+* `4.0.4`, `4.1.6`, `4.1.7`, `4.1.8`, `4.1.9`, `4.1.10`, `4x.` [(4.x/Dockerfile)](https://github.com/Easycom-Solutions/docker-varnish/blob/4.x/Dockerfile)
+* `5.0.0`, `5.1.1`, `5.1.2`, `5.1.3`, `5.2.0`, `5.2.1`, `5x.` [(5.x/Dockerfile)](https://github.com/Easycom-Solutions/docker-varnish/blob/5.x/Dockerfile)
+* `6.0.1`, `6.0.2`, `6.1.0`, `6.1.1`, `6x.` [(6.x/Dockerfile)](https://github.com/Easycom-Solutions/docker-varnish/blob/6.x/Dockerfile)
  
 # How to use this image
 
