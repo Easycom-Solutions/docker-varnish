@@ -1,7 +1,7 @@
 FROM easycom/base:stretch
-MAINTAINER Frédéric TURPIN <frederic.turpin@easycom.digital>
+MAINTAINER Emilien T <xmedias@easycom.digital>
 
-ENV VARNISH_VERSION=5.1.2
+ENV VARNISH_VERSION=5.1.3
 COPY varnish-${VARNISH_VERSION}.tar.gz /tmp/varnish.tar.gz
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
